@@ -29,33 +29,34 @@ Before using this tool, make sure you have the following installed:
 1. **Python 3.9+**
     
     Mac: 
-Python 3 is usually preinstalled. Check with:
 
-```bash
-python3 --version
-```
+    Python 3 is usually preinstalled. Check with:
 
-If missing, install via Python.org or Homebrew:
+    ```bash
+    python3 --version
+    ```
 
-```bash
-brew install python
-```
+    If missing, install via Python.org or Homebrew:
 
-Windows:
+    ```bash
+    brew install python
+    ```
 
-Download from Python.org
-When installing, make sure to check the box "Add Python to PATH".
-Verify:
+    Windows:
 
-```bash
-python3 --version
-```
+    Download from Python.org
+    When installing, make sure to check the box "Add Python to PATH".
+    Verify:
 
-Linux:
+    ```bash
+    python3 --version
+    ```
 
-```bash
-sudo apt update && sudo apt install python3 python3-pip -y
-```
+    Linux:
+
+    ```bash
+    sudo apt update && sudo apt install python3 python3-pip -y
+    ```
 
 
 2. **Pip (Python package manager)**
@@ -71,17 +72,17 @@ sudo apt update && sudo apt install python3 python3-pip -y
 
 3. **Virtual Environment (recommended)**
 
-  This avoids dependency conflicts.
-  
-  ```bash
-python3 -m venv venv
-source venv/bin/activate   # Mac/Linux
-venv\Scripts\activate      # Windows
-```
+    This avoids dependency conflicts.
+
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate   # Mac/Linux
+    venv\Scripts\activate      # Windows
+    ```
 
 4. **OpenAI API Key** (for AI suggestions)
 
-  Get one from [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys)
+    Get one from [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys)
 
 ## 📦 Installation
 
