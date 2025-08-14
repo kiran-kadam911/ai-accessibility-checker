@@ -58,7 +58,6 @@ Before using this tool, make sure you have the following installed:
     sudo apt update && sudo apt install python3 python3-pip -y
     ```
 
-
 2. **Pip (Python package manager)**
 
    ```bash
