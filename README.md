@@ -79,10 +79,6 @@ Before using this tool, make sure you have the following installed:
     venv\Scripts\activate      # Windows
     ```
 
-4. **OpenAI API Key** (for AI suggestions)
-
-    Get one from [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys)
-
 ## 📦 Installation
 
 1️⃣ Clone / Copy this script into your project
@@ -107,6 +103,7 @@ openai>=1.0.0
 ```
 
 ## 🔐 Setup OpenAI API Key
+You can get your key from [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys). (for AI suggestions)
 
 To use AI-powered features, you need to provide your OpenAI API key.
     
@@ -115,8 +112,6 @@ To use AI-powered features, you need to provide your OpenAI API key.
 This will generate a .env file in your project root like:
 
     OPENAI_API_KEY=sk-xxxxxxx
-
-You can get your key from [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys).
 
 ## 🚀 Usage
 
