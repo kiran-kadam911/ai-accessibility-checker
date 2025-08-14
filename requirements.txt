@@ -1,0 +1,3 @@
+python-dotenv
+tabulate
+openai>=1.0.0
