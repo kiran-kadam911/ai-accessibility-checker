@@ -164,11 +164,10 @@ You can use this tool directly in your GitHub workflows without needing to insta
 name: AI Accessibility Checker
 
 on:
-  workflow_dispatch: # allows running manually from GitHub UI
+  workflow_dispatch: # run manually
   push:
     branches:
       - main
-      - develop
   pull_request:
 
 jobs:
@@ -189,13 +188,13 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install openai python-dotenv tabulate
+          pip install -r requirements.txt || pip install openai python-dotenv tabulate
 
-      # Step 4: Create .env file with API key from secrets
+      # Step 4: Set environment variables
       - name: Set environment variables
-        run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
+        run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
 
       # Step 5: Run Accessibility Checker
       - name: Run AI Accessibility Checker
-        run: python ai_accessibility_checker.py
+        run: python ai_accessibility_checker.py --level A --version 2.0 --format table --dir ./themes/custom/my_theme
 ```
