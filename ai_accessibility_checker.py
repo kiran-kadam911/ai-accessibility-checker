@@ -1,35 +1,53 @@
 import os
 import re
 import json
+from pathlib import Path
 from openai import OpenAI
 from dotenv import load_dotenv
 from tabulate import tabulate
 
+# -------------------------
 # Load API Key from .env
+# -------------------------
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 if not OPENAI_API_KEY:
     print("❌ OpenAI API key not found in .env file.")
-    print("Please create a .env file with: OPENAI_API_KEY=your_key_here")
+    print("Please create a .env file with:\n\n  OPENAI_API_KEY=your_key_here")
     exit(1)
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-# Supported file extensions for scanning
-SUPPORTED_EXTENSIONS = ['.html', '.twig', '.css', '.scss', '.pcss', '.jsx', '.tsx']
+# -------------------------
+# Load Config (checker.config.json)
+# -------------------------
+def load_config():
+    config_file = Path("checker.config.json")
+    if not config_file.exists():
+        print("⚠️ No checker.config.json found. Using default settings.")
+        return {
+            "SUPPORTED_EXTENSIONS": [".html", ".twig", ".css", ".scss", ".pcss", ".jsx", ".tsx"],
+            "EXCLUDED_DIRS": ["node_modules", "storybook", ".git", "__pycache__", "dist", "build"],
+            "EXCLUDED_PATTERNS": [".stories.jsx", ".stories.tsx"],
+            "MODEL": "gpt-4o"
+        }
+    with open(config_file, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-# Excluded directories
-EXCLUDED_DIRS = ['node_modules', '.git', '__pycache__', 'dist', 'build']
+CONFIG = load_config()
 
+# -------------------------
+# User Inputs
+# -------------------------
 def get_user_inputs():
     print("👋 Welcome to AI Accessibility Checker\n")
     
-    level = input("🧩 Which WCAG accessibility level do you want to check? (A / AA / AAA): ").upper().strip()
+    level = input("🧩 Which WCAG accessibility level? (A / AA / AAA): ").upper().strip()
     while level not in ["A", "AA", "AAA"]:
         level = input("❗ Please enter a valid level (A / AA / AAA): ").upper().strip()
 
-    version = input("📘 Which WCAG version do you want to check? (2.0 / 2.1 / 2.2): ").strip()
+    version = input("📘 Which WCAG version? (2.0 / 2.1 / 2.2): ").strip()
     while version not in ["2.0", "2.1", "2.2"]:
         version = input("❗ Please enter a valid version (2.0 / 2.1 / 2.2): ").strip()
 
@@ -38,21 +56,31 @@ def get_user_inputs():
         print("⚠️ Invalid choice. Defaulting to 'table'.")
         output_format = "table"
 
-    path = input("📂 Enter the directory path to scan the files (leave blank for current directory): ").strip()
+    path = input("📂 Enter the directory path to scan (leave blank for current directory): ").strip()
     if not path:
         path = os.getcwd()
 
     return level, version, output_format, path
 
+# -------------------------
+# File Finder
+# -------------------------
 def find_supported_files(directory):
     files_to_scan = []
     for root, dirs, files in os.walk(directory):
-        dirs[:] = [d for d in dirs if not d.startswith('.') and d not in EXCLUDED_DIRS]
+        # filter dirs in-place
+        dirs[:] = [d for d in dirs if not d.startswith('.') and d not in CONFIG["EXCLUDED_DIRS"]]
         for file in files:
-            if any(file.endswith(ext) for ext in SUPPORTED_EXTENSIONS):
+            if (
+                any(file.endswith(ext) for ext in CONFIG["SUPPORTED_EXTENSIONS"])
+                and not any(pat in file for pat in CONFIG["EXCLUDED_PATTERNS"])
+            ):
                 files_to_scan.append(os.path.join(root, file))
     return files_to_scan
 
+# -------------------------
+# AI Analysis
+# -------------------------
 def scan_with_ai(content, file_name, level, version):
     prompt = f"""
 You are an expert in web accessibility and WCAG compliance.
@@ -87,7 +115,7 @@ File: {file_name}
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model=CONFIG["MODEL"],
             messages=[
                 {"role": "system", "content": "You are an expert accessibility auditor."},
                 {"role": "user", "content": prompt}
@@ -111,6 +139,9 @@ File: {file_name}
         print(f"❌ Error scanning file {file_name}: {str(e)}")
         return []
 
+# -------------------------
+# Main Runner
+# -------------------------
 def main():
     level, version, output_format, directory = get_user_inputs()
     files_to_scan = find_supported_files(directory)
@@ -148,7 +179,7 @@ def main():
                     for i, issue in enumerate(issues)
                 ]
                 headers = ["#", "Issue Title", "Issue Type", "Severity", "Line(s)", "Description", "Suggestion"]
-                print(tabulate(table_data, headers=headers, tablefmt="grid", maxcolwidths=[None, 25, 10, 10, 10, 40, 40]))
+                print(tabulate(table_data, headers=headers, tablefmt="grid", maxcolwidths=[None, 25, 15, 10, 10, 40, 40]))
                 print("\n" + "-"*100 + "\n")
 
             elif output_format == "list":

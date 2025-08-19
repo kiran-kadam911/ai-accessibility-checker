@@ -1,0 +1,6 @@
+{
+  "SUPPORTED_EXTENSIONS": [".html", ".twig", ".css", ".scss", ".pcss", ".jsx", ".tsx"],
+  "EXCLUDED_DIRS": ["node_modules", "storybook", ".git", "__pycache__", "dist", "build"],
+  "EXCLUDED_PATTERNS": [".stories.jsx", ".stories.tsx"],
+  "MODEL": "gpt-4o"
+}
