@@ -145,10 +145,14 @@ You will be prompted to:
    - **Description:** `<img>` lacks `alt` attribute for screen readers.  
    - **Suggestion:** Add descriptive `alt` text to all `<img>` elements.
 
-### 📂 Supported File Types
+### ⚙️ checker.config.json
 
-```bash
-.html, .twig
-.css, .scss, .pcss
-.jsx, .tsx
-```
+The checker.config.json file allows you to customize how the AI Accessibility Checker scans your project.
+
+**Configuration options:**
+- **SUPPORTED_EXTENSIONS** – List of file types the checker will scan (e.g., .html, .twig, .css, .jsx).
+- **EXCLUDED_DIRS** – Directories to skip during scanning (e.g., node_modules, build, .git).
+- **EXCLUDED_PATTERNS** – File name patterns to ignore (e.g., Storybook files like .stories.jsx).
+- **MODEL** – Defines which AI model to use for accessibility analysis.
+
+This configuration helps tailor the scan to your project’s structure, ensuring that only relevant files are checked while ignoring unnecessary or temporary files.
