@@ -4,7 +4,7 @@ A smart Python CLI tool to scan your project’s frontend code for WCAG complian
 ## Features
 - Supports WCAG Levels: A, AA, AAA
 - Supports WCAG Versions: 2.0, 2.1, 2.2
-- Skips unnecessary folders (node_modules, .git, __pycache__, etc.)
+- Skips unnecessary folders & files (node_modules, .git, __pycache__, etc.)
 - AI-powered suggestions for each detected issue
 - Output in table or list format
 - Works as standalone CLI or pre-commit hook
@@ -156,3 +156,46 @@ The checker.config.json file allows you to customize how the AI Accessibility Ch
 - **MODEL** – Defines which AI model to use for accessibility analysis.
 
 This configuration helps tailor the scan to your project’s structure, ensuring that only relevant files are checked while ignoring unnecessary or temporary files.
+
+## Usage as a GitHub Action
+You can use this tool directly in your GitHub workflows without needing to install anything locally.
+
+```bash
+name: AI Accessibility Checker
+
+on:
+  workflow_dispatch: # allows running manually from GitHub UI
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+jobs:
+  run-checker:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install openai python-dotenv tabulate
+
+      # Step 4: Create .env file with API key from secrets
+      - name: Set environment variables
+        run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" > .env
+
+      # Step 5: Run Accessibility Checker
+      - name: Run AI Accessibility Checker
+        run: python ai_accessibility_checker.py
+```

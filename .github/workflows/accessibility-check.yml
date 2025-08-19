@@ -1,0 +1,36 @@
+name: AI Accessibility Checker
+
+on:
+  workflow_dispatch: # run manually
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  run-checker:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt || pip install openai python-dotenv tabulate
+
+      # Step 4: Set environment variables
+      - name: Set environment variables
+        run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+
+      # Step 5: Run Accessibility Checker
+      - name: Run AI Accessibility Checker
+        run: python ai_accessibility_checker.py --config checker.config.json
