@@ -33,4 +33,4 @@ jobs:
 
       # Step 5: Run Accessibility Checker
       - name: Run AI Accessibility Checker
-        run: python ai_accessibility_checker.py --config checker.config.json --level A --version 2.0 --format table --path .
+        run: python ai_accessibility_checker.py --config checker.config.json --level A --version 2.0 --format table --dir .

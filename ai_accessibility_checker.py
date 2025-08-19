@@ -1,13 +1,14 @@
 import os
 import re
 import json
+import argparse
 from pathlib import Path
 from openai import OpenAI
 from dotenv import load_dotenv
 from tabulate import tabulate
 
 # -------------------------
-# Load API Key from .env
+# Load API Key from .env or ENV
 # -------------------------
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
@@ -15,7 +16,7 @@ if not OPENAI_API_KEY:
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 if not OPENAI_API_KEY:
-    print("❌ OpenAI API key not found in .env file.")
+    print("❌ OpenAI API key not found in .env file or environment variable.")
     print("Please create a .env file with:\n\n  OPENAI_API_KEY=your_key_here")
     exit(1)
 
@@ -40,9 +41,22 @@ def load_config():
 CONFIG = load_config()
 
 # -------------------------
-# User Inputs
+# User Inputs (interactive or CLI)
 # -------------------------
 def get_user_inputs():
+    parser = argparse.ArgumentParser(description="AI Accessibility Checker")
+    parser.add_argument("--level", choices=["A", "AA", "AAA"], help="WCAG accessibility level")
+    parser.add_argument("--version", choices=["2.0", "2.1", "2.2"], help="WCAG version")
+    parser.add_argument("--format", choices=["table", "list"], default="table", help="Output format")
+    parser.add_argument("--dir", default=os.getcwd(), help="Directory to scan")
+
+    args = parser.parse_args()
+
+    # If CLI args provided, use them (CI mode)
+    if args.level and args.version:
+        return args.level, args.version, args.format, args.dir
+
+    # Otherwise, ask interactively (local mode)
     print("👋 Welcome to AI Accessibility Checker\n")
     
     level = input("🧩 Which WCAG accessibility level? (A / AA / AAA): ").upper().strip()
@@ -70,7 +84,6 @@ def get_user_inputs():
 def find_supported_files(directory):
     files_to_scan = []
     for root, dirs, files in os.walk(directory):
-        # filter dirs in-place
         dirs[:] = [d for d in dirs if not d.startswith('.') and d not in CONFIG["EXCLUDED_DIRS"]]
         for file in files:
             if (
