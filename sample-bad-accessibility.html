@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <title>Sample Bad Accessibility</title> <!-- Vague title -->
+  <style>
+    *:focus { outline: none; } /* Bad: removes focus */
+    .low-contrast { color: #ccc; background: #fff; } /* Low contrast */
+  </style>
+</head>
+<body>
+
+  <!-- Skips heading levels -->
+  <h3>Welcome</h3>
+
+  <!-- Image without alt -->
+  <img src="image.jpg">
+
+  <!-- Link with non-descriptive text -->
+  <a href="#">Click here</a>
+
+  <!-- Div used as button -->
+  <div onclick="alert('Submitted!')">Submit</div>
+
+  <!-- Low contrast text -->
+  <p class="low-contrast">Hard to read text</p>
+
+</body>
+</html>

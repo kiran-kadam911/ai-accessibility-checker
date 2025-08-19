@@ -164,7 +164,6 @@ You can use this tool directly in your GitHub workflows without needing to insta
 name: AI Accessibility Checker
 
 on:
-  workflow_dispatch: # run manually
   push:
     branches:
       - main

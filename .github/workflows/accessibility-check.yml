@@ -2,10 +2,6 @@ name: AI Accessibility Checker
 
 on:
   workflow_dispatch: # run manually
-  push:
-    branches:
-      - main
-  pull_request:
 
 jobs:
   run-checker:
