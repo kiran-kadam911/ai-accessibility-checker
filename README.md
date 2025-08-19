@@ -145,7 +145,7 @@ You will be prompted to:
    - **Description:** `<img>` lacks `alt` attribute for screen readers.  
    - **Suggestion:** Add descriptive `alt` text to all `<img>` elements.
 
-### ⚙️ checker.config.json
+#### ⚙️ checker.config.json
 
 The checker.config.json file allows you to customize how the AI Accessibility Checker scans your project.
 
