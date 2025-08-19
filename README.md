@@ -84,7 +84,7 @@ Before using this tool, make sure you have the following installed:
 1️⃣ Clone / Copy this script into your project
 
 ```bash
-git clone https://github.com/yourname/ai-accessibility-checker.git
+git clone git@github.com:kiran-kadam911/ai-accessibility-checker.git
 cd ai-accessibility-checker
 ```
 
