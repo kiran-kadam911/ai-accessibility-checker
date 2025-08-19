@@ -157,7 +157,7 @@ The checker.config.json file allows you to customize how the AI Accessibility Ch
 
 This configuration helps tailor the scan to your project’s structure, ensuring that only relevant files are checked while ignoring unnecessary or temporary files.
 
-## Usage as a GitHub Action
+### Usage as a GitHub Action
 You can use this tool directly in your GitHub workflows without needing to install anything locally.
 
 ```bash
