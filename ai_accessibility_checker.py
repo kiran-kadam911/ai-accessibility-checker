@@ -9,8 +9,10 @@ from tabulate import tabulate
 # -------------------------
 # Load API Key from .env
 # -------------------------
-load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    load_dotenv()
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 if not OPENAI_API_KEY:
     print("❌ OpenAI API key not found in .env file.")
