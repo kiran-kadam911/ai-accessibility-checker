@@ -102,8 +102,12 @@ tabulate
 openai>=1.0.0
 ```
 
-## 🔐 Setup OpenAI API Key
-You can get your key from [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys). (for AI suggestions)
+## 🚀 Usage
+
+### Standalone CLI
+
+#### 🔐 Setup OpenAI API Key
+You can get your key from [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys). (for AI suggestions - Use Paid API plan)
 
 To use AI-powered features, you need to provide your OpenAI API key.
     
@@ -113,9 +117,8 @@ This will generate a .env file in your project root like:
 
     OPENAI_API_KEY=sk-xxxxxxx
 
-## 🚀 Usage
+Once API key set then,
 
-### Standalone CLI
 Run
 
 ```bash
@@ -159,6 +162,11 @@ This configuration helps tailor the scan to your project’s structure, ensuring
 
 ### Usage as a GitHub Action
 You can use this tool directly in your GitHub workflows without needing to install anything locally.
+
+#### Save API Key as a GitHub Secret
+- Go to your repository → Settings → Secrets and variables → Actions → New repository secret.
+- Name it: OPENAI_API_KEY
+- Paste your actual key as the value.
 
 ```bash
 name: AI Accessibility Checker
