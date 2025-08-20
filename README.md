@@ -17,14 +17,14 @@ A smart Python CLI tool to scan your project’s frontend code for WCAG complian
 - 🖼️ ARIA misusage
 - 🧠 AI-powered suggestions to fix detected issues
 
-## 🧠 How It Works
+## How It Works
 
 - Reads files and adds line numbers
 - Sends file contents to OpenAI with WCAG context
 - AI detects violations and returns JSON
 - Script formats and displays results
 
-## ⚙️ Prerequisites
+## Prerequisites
 Before using this tool, make sure you have the following installed:
 1. **Python 3.9+**
     
@@ -79,7 +79,7 @@ Before using this tool, make sure you have the following installed:
     venv\Scripts\activate      # Windows
     ```
 
-## 📦 Installation
+## Installation
 
 1️⃣ Clone / Copy this script into your project
 
@@ -102,11 +102,11 @@ tabulate
 openai>=1.0.0
 ```
 
-## 🚀 Usage
+## Usage
 
 ### Standalone CLI
 
-#### 🔐 Setup OpenAI API Key
+#### Setup OpenAI API Key
 You can get your key from [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys). (for AI suggestions - Use Paid API plan)
 
 To use AI-powered features, you need to provide your OpenAI API key.
@@ -148,7 +148,7 @@ You will be prompted to:
    - **Description:** `<img>` lacks `alt` attribute for screen readers.  
    - **Suggestion:** Add descriptive `alt` text to all `<img>` elements.
 
-#### ⚙️ checker.config.json
+#### checker.config.json
 
 The checker.config.json file allows you to customize how the AI Accessibility Checker scans your project.
 
@@ -163,7 +163,7 @@ This configuration helps tailor the scan to your project’s structure, ensuring
 ### Usage as a GitHub Action
 You can use this tool directly in your GitHub workflows without needing to install anything locally.
 
-#### 🔐 Save API Key as a GitHub Secret
+#### Save API Key as a GitHub Secret
 - Go to your repository → Settings → Secrets and variables → Actions → New repository secret.
 - Name it: OPENAI_API_KEY
 - Paste your actual key as the value.
