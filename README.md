@@ -205,3 +205,6 @@ jobs:
       - name: Run AI Accessibility Checker
         run: python ai_accessibility_checker.py --level A --version 2.0 --format table --dir ./themes/custom/my_theme
 ```
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
