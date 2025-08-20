@@ -119,7 +119,7 @@ This will generate a .env file in your project root like:
 
 Once API key set then,
 
-Run
+**Run**
 
 ```bash
 python ai_accessibility_checker.py
@@ -163,7 +163,7 @@ This configuration helps tailor the scan to your project’s structure, ensuring
 ### Usage as a GitHub Action
 You can use this tool directly in your GitHub workflows without needing to install anything locally.
 
-#### Save API Key as a GitHub Secret
+#### 🔐 Save API Key as a GitHub Secret
 - Go to your repository → Settings → Secrets and variables → Actions → New repository secret.
 - Name it: OPENAI_API_KEY
 - Paste your actual key as the value.
