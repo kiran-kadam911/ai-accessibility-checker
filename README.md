@@ -205,7 +205,9 @@ jobs:
 
       # Step 4: Set environment variables
       - name: Set environment variables
-        run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+          echo "AI_CHECKER_ACKNOWLEDGED=true" >> $GITHUB_ENV
 
       # Step 5: Run Accessibility Checker
       - name: Run AI Accessibility Checker
