@@ -24,6 +24,12 @@ A smart Python CLI tool to scan your project’s frontend code for WCAG complian
 - AI detects violations and returns JSON
 - Script formats and displays results
 
+## ⚠️ Data Privacy & Compliance Notice
+
+This tool sends code snippets from your project to the OpenAI API for analysis.
+Before using it, you are responsible for ensuring your project and organization allow sharing code with third-party services.
+Do not use this tool on proprietary or confidential code unless you have permission.
+
 ## Prerequisites
 Before using this tool, make sure you have the following installed:
 1. **Python 3.9+**

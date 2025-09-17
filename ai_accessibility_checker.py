@@ -158,6 +158,15 @@ File: {file_name}
 # Main Runner
 # -------------------------
 def main():
+    # --- Compliance / Acknowledgement ---
+    if os.getenv("AI_CHECKER_ACKNOWLEDGED") != "true":
+        print("⚠️ This tool sends your code snippets to the OpenAI API for processing.")
+        print("Please ensure your project has no contractual or compliance restrictions before continuing.")
+        resp = input("Do you acknowledge and wish to continue? (yes/no): ").strip().lower()
+        if resp != "yes":
+            print("Exiting. You must acknowledge before running.")
+            exit(0)
+
     level, version, output_format, directory = get_user_inputs()
     files_to_scan = find_supported_files(directory)
 
